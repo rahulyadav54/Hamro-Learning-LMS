@@ -1,4 +1,4 @@
-FROM webdevops/php-nginx:7.4
+FROM webdevops/php-nginx:8.4
 
 ENV WEB_DOCUMENT_ROOT=/app
 ENV APP_ENV=production
@@ -11,13 +11,11 @@ WORKDIR /app
 COPY . /app/
 
 # Install PHP dependencies without running build-time scripts.
-# The Infix LMS app is Laravel 7 / PHP 7.4. The original richarvey image ships
-# PHP 8, which crashes `artisan package:discover` (post-autoload-dump) -> the
-# `composer install` build step exits 1. We use a PHP 7.4 base and defer the
-# Laravel post-install steps to container runtime (see docker/entrypoint.sh).
+# The deployed dependency set now requires PHP 8.4.1+, so the container must
+# match that runtime or Composer will generate a failing platform check.
 # Composer versions available on some build hosts do not support
 # --no-security-blocking, so keep the install command compatible.
-RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs --no-scripts \
+RUN composer install --no-dev --optimize-autoloader --no-scripts \
     && composer dump-autoload --optimize --no-scripts
 
 # Nginx vhost for the project-root-as-webroot layout (root index.php).
