@@ -3,6 +3,7 @@ FROM webdevops/php-nginx:7.4
 ENV WEB_DOCUMENT_ROOT=/app
 ENV APP_ENV=production
 ENV APP_DEBUG=false
+ENV COMPOSER_ALLOW_SUPERUSER=1
 
 WORKDIR /app
 
@@ -14,10 +15,9 @@ COPY . /app/
 # PHP 8, which crashes `artisan package:discover` (post-autoload-dump) -> the
 # `composer install` build step exits 1. We use a PHP 7.4 base and defer the
 # Laravel post-install steps to container runtime (see docker/entrypoint.sh).
-# --no-security-blocking bypasses Packagist security-advisory blocking for the
-# old firebase/php-jwt ^5.0 required by laravel/passport (advisory-only, not
-# a hard break for this app).
-RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs --no-scripts --no-security-blocking \
+# Composer versions available on some build hosts do not support
+# --no-security-blocking, so keep the install command compatible.
+RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs --no-scripts \
     && composer dump-autoload --optimize --no-scripts
 
 # Nginx vhost for the project-root-as-webroot layout (root index.php).
