@@ -3,8 +3,8 @@ set -e
 
 cd /app
 
-# Generate app key if missing (.env is provided via Render env vars; this only
-# seeds APP_KEY if the env var is empty in the running container).
+# Generate app key if missing. This only seeds APP_KEY if the env var is empty
+# in the running container.
 if [ -z "$APP_KEY" ]; then
     php artisan key:generate --force || true
 fi
