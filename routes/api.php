@@ -68,6 +68,9 @@ Route::group([
         Route::post('/make-payment/{response}/{gateWayName}', 'WebsiteApiController@payWithGateWay');
 
         Route::get('/my-billing-address', 'WebsiteApiController@myBilling');
+        Route::get('/dashboard', 'StudentAppController@dashboard');
+        Route::get('/live-classes', 'StudentAppController@liveClasses');
+        Route::get('/purchases', 'StudentAppController@purchases');
 
     });
 });
