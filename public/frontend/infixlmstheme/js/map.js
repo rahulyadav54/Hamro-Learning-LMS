@@ -6,7 +6,7 @@ function basicmap(lat, lng, zoom) {
         zoom: zoom,
         scrollwheel: false,
         // The latitude and longitude to center the map (always required)
-        center: new google.maps.LatLng(lat, lng), // New York
+        center: new google.maps.LatLng(lat, lng), // Bangalore
         // This is where you would paste any style found on Snazzy Maps.
         styles: [
             {
@@ -196,6 +196,6 @@ function basicmap(lat, lng, zoom) {
     var marker = new google.maps.Marker({
         position: new google.maps.LatLng(lat, lng),
         map: map,
-        title: 'Cryptox'
+        title: 'Bangalore'
     });
 }

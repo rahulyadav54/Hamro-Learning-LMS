@@ -287,7 +287,7 @@
 <script src="{{ asset('public/frontend/infixlmstheme') }}/js/main.js"></script>
 <script src="{{ asset('public/frontend/infixlmstheme') }}/js/footer.js"></script>
 <script src="{{asset('public')}}/js/toastr.min.js"></script>
-{!! Toastr::message() !!}
+@include('shared.filtered-toastr')
 @yield('js')
 
 <script>

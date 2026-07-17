@@ -115,6 +115,6 @@
      @include('frontend.infixlmstheme.auth.login_wrapper_right')
     </div>
 
-    {!! Toastr::message() !!}
+    @include('shared.filtered-toastr')
 
 @endsection

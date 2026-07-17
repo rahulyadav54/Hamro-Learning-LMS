@@ -81,6 +81,6 @@
         <script src="{{asset('backend/vendors/js/jquery-3.5.1.min.js')}}"></script>
 {{--        <script src="{{asset('backend/vendors/js/jquery-3.2.1.min.js')}}"></script>--}}
         <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
-        {!! Toastr::message() !!}
+        @include('shared.filtered-toastr')
 </body>
 </html>

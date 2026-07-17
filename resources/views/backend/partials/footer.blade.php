@@ -16,18 +16,7 @@
 
 
 @include('backend.partials.script')
-{!! Toastr::message() !!}
-
-@if($errors->any())
-    <script>
-        @foreach($errors->all() as $error)
-        toastr.error('{{ $error }}', 'Error', {
-            closeButton: true,
-            progressBar: true,
-        });
-        @endforeach
-    </script>
-    @endif
+@include('shared.filtered-toastr')
 
     </body>
     </html>

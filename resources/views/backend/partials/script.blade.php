@@ -165,7 +165,7 @@
                     toastr.success('{{__('common.Successfully Assign')}}', '{{__('common.Success')}}');
                 },
                 error: function (data) {
-                    toastr.error('{{__('common.Something Went Wrong')}}', '{{__('common.Error')}}')
+                    toastr.warning('{{__('common.Something Went Wrong')}}', '{{__('common.Warning')}}')
                 }
             });
         });

@@ -158,12 +158,15 @@
             </div>
         </div>
     </div>
+    @php
+        $mapLat = getSetting()->lat ?: '12.9716';
+        $mapLng = getSetting()->lng ?: '77.5946';
+        $mapZoom = getSetting()->zoom_level ?: '12';
+    @endphp
 
-
-
-    <input type="hidden" name="lat" class="lat" value="{{getSetting()->lat}}">
-    <input type="hidden" name="lng" class="lng" value="{{getSetting()->lng}}">
-    <input type="hidden" name="zoom" class="zoom" value="{{getSetting()->zoom_level}}">
+    <input type="hidden" name="lat" class="lat" value="{{ $mapLat }}">
+    <input type="hidden" name="lng" class="lng" value="{{ $mapLng }}">
+    <input type="hidden" name="zoom" class="zoom" value="{{ $mapZoom }}">
 @endsection
 @section('js')
     <script src="https://maps.googleapis.com/maps/api/js?key={{getSetting()->gmap_key}}"></script>

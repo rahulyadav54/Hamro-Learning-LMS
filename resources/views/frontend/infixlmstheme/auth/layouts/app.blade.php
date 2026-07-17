@@ -30,7 +30,7 @@
 <body>
 @yield('content')
 
-{!! \Brian2694\Toastr\Facades\Toastr::message() !!}
+@include('shared.filtered-toastr')
 </body>
 
 
