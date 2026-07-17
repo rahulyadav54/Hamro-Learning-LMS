@@ -2,6 +2,7 @@
     "name": "spondonit/service",
     "description": "Basic Service Provider for Spondonit application",
     "type": "library",
+    "version": "dev-master",
     "license": "MIT",
     "authors": [{
         "name": "spondonit",
