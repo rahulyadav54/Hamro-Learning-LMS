@@ -27,7 +27,10 @@ COPY docker/nginx/vhost.conf /opt/docker/etc/nginx/vhost.common.d/10-infix.conf
 COPY docker/entrypoint.sh /docker-entrypoint-app.sh
 RUN chmod +x /docker-entrypoint-app.sh
 
-RUN chmod -R 777 storage bootstrap/cache
+# Create runtime writable directories first; empty dirs may not exist in the
+# Docker build context when .dockerignore filters their contents.
+RUN mkdir -p storage bootstrap/cache \
+    && chmod -R 777 storage bootstrap/cache
 
 # Run our entrypoint first, then hand off to the base image entrypoint.
 ENTRYPOINT ["/docker-entrypoint-app.sh"]
