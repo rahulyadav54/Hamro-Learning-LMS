@@ -17,8 +17,7 @@ COPY . /app/
 # --no-security-blocking bypasses Packagist security-advisory blocking for the
 # old firebase/php-jwt ^5.0 required by laravel/passport (advisory-only, not
 # a hard break for this app).
-RUN composer config --global policy.advisories.block false \
-    && composer install --no-dev --optimize-autoloader --ignore-platform-reqs --no-scripts --no-security-blocking \
+RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs --no-scripts --no-security-blocking \
     && composer dump-autoload --optimize --no-scripts
 
 # Nginx vhost for the project-root-as-webroot layout (root index.php).
