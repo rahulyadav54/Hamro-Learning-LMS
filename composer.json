@@ -1,4 +1,16 @@
 {
+    "repositories": [
+        {
+            "type": "path",
+            "url": "packages/spondonit/service",
+            "options": { "symlink": false }
+        },
+        {
+            "type": "path",
+            "url": "packages/spondonit/lms-service",
+            "options": { "symlink": false }
+        }
+    ],
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
