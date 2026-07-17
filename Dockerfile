@@ -4,8 +4,8 @@ WORKDIR /var/www/html
 
 COPY . .
 
-# Install dependencies
-RUN composer install --no-dev --optimize-autoloader
+# Install dependencies (ignoring platform reqs for PHP 8 compatibility)
+RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
 # Set permissions
 RUN chmod -R 777 storage bootstrap/cache
