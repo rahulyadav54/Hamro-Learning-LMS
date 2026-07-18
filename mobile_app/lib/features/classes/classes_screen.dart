@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/network/lms_api_service.dart';
+import '../../core/utils/link_launcher.dart';
 import '../../models/course_item.dart';
 import '../../widgets/section_header.dart';
 
@@ -59,6 +60,13 @@ class _ClassesScreenState extends State<ClassesScreen> {
                           ),
                           const SizedBox(height: 8),
                           Text('${course.progress}% completed'),
+                          if (course.joinUrl != null) ...[
+                            const SizedBox(height: 12),
+                            FilledButton(
+                              onPressed: () => openExternalLink(course.joinUrl),
+                              child: const Text('Join Class'),
+                            ),
+                          ],
                         ],
                       ),
                     ),

@@ -7,6 +7,8 @@ class LiveClassItem {
     required this.time,
     required this.status,
     required this.instructorName,
+    required this.joinUrl,
+    required this.host,
   });
 
   final String courseTitle;
@@ -16,6 +18,8 @@ class LiveClassItem {
   final String? time;
   final String status;
   final String instructorName;
+  final String? joinUrl;
+  final String? host;
 
   factory LiveClassItem.fromJson(Map<String, dynamic> json) {
     return LiveClassItem(
@@ -26,6 +30,8 @@ class LiveClassItem {
       time: json['time']?.toString(),
       status: json['status']?.toString() ?? 'Scheduled',
       instructorName: json['instructor_name']?.toString() ?? '',
+      joinUrl: json['join_url']?.toString(),
+      host: json['host']?.toString(),
     );
   }
 }

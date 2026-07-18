@@ -7,6 +7,7 @@ class CourseItem {
     required this.instructorName,
     required this.price,
     required this.progress,
+    required this.joinUrl,
   });
 
   final int? id;
@@ -16,6 +17,7 @@ class CourseItem {
   final String instructorName;
   final double price;
   final int progress;
+  final String? joinUrl;
 
   factory CourseItem.fromJson(Map<String, dynamic> json) {
     return CourseItem(
@@ -26,6 +28,7 @@ class CourseItem {
       instructorName: json['instructor_name']?.toString() ?? json['userName']?.toString() ?? '',
       price: (json['price'] as num?)?.toDouble() ?? 0,
       progress: (json['progress'] as num?)?.toInt() ?? 0,
+      joinUrl: json['join_url']?.toString(),
     );
   }
 }

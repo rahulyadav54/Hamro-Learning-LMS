@@ -9,13 +9,45 @@ use Modules\Payment\Entities\Checkout;
 
 class StudentAppController extends Controller
 {
+    private function meetingJoinUrl($course)
+    {
+        if (!$course || !$course->class) {
+            return null;
+        }
+
+        $class = $course->class;
+
+        if ($class->host === 'Zoom') {
+            $meeting = $class->zoomMeetings->first();
+            if ($meeting) {
+                return route('zoom.meeting.join', $meeting->meeting_id);
+            }
+        }
+
+        if ($class->host === 'BBB') {
+            $meeting = $class->bbbMeetings->first();
+            if ($meeting) {
+                return url('bbb/meeting-start-attendee/' . $course->id . '/' . $meeting->meeting_id);
+            }
+        }
+
+        if ($class->host === 'Jitsi') {
+            $meeting = $class->jitsiMeetings->first();
+            if ($meeting) {
+                return url('jitsi/meeting-start/' . $course->id . '/' . $meeting->meeting_id);
+            }
+        }
+
+        return null;
+    }
+
     public function dashboard(Request $request)
     {
         try {
             $user = $request->user();
 
             $courses = CourseEnrolled::where('user_id', $user->id)
-                ->with('course.user', 'course.class', 'course.lessons', 'course.completeLessons')
+                ->with('course.user', 'course.class.zoomMeetings', 'course.class.bbbMeetings', 'course.class.jitsiMeetings', 'course.lessons', 'course.completeLessons')
                 ->latest()
                 ->get();
 
@@ -47,6 +79,8 @@ class StudentAppController extends Controller
                     'end_date' => $class->end_date,
                     'time' => $class->time,
                     'instructor_name' => optional($nextLiveClass->course->user)->name,
+                    'join_url' => $this->meetingJoinUrl($nextLiveClass->course),
+                    'host' => $class->host ?? null,
                 ];
             }
 
@@ -67,6 +101,7 @@ class StudentAppController extends Controller
                     'instructor_name' => optional($course->user)->name,
                     'price' => (float) $enrollment->purchase_price,
                     'progress' => $progress,
+                    'join_url' => $this->meetingJoinUrl($course),
                 ];
             })->values();
 
@@ -123,7 +158,7 @@ class StudentAppController extends Controller
                 ->whereHas('course', function ($query) {
                     $query->whereNotNull('class_id');
                 })
-                ->with('course.user', 'course.class')
+                ->with('course.user', 'course.class.zoomMeetings', 'course.class.bbbMeetings', 'course.class.jitsiMeetings')
                 ->latest()
                 ->get();
 
@@ -141,6 +176,8 @@ class StudentAppController extends Controller
                     'end_date' => $class->end_date ?? null,
                     'time' => $class->time ?? null,
                     'status' => $class ? 'Scheduled' : 'Unavailable',
+                    'join_url' => $this->meetingJoinUrl($course),
+                    'host' => $class->host ?? null,
                 ];
             })->values();
 

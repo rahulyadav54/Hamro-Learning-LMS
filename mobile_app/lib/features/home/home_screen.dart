@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../core/network/lms_api_service.dart';
+import '../../core/utils/link_launcher.dart';
+import '../../models/course_item.dart';
 import '../../models/dashboard_summary.dart';
 import '../../widgets/section_header.dart';
 
@@ -27,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context, snapshot) {
         final summary = snapshot.data;
         final userName = summary == null ? 'Student' : summary.user.name;
-        final recentCourses = summary?.recentCourses ?? const <dynamic>[];
+        final recentCourses = summary?.recentCourses ?? const <CourseItem>[];
 
         return ListView(
           padding: const EdgeInsets.all(20),
@@ -133,7 +135,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       const SizedBox(height: 12),
                       FilledButton(
-                        onPressed: summary?.nextLiveClass == null ? null : () {},
+                        onPressed: summary?.nextLiveClass?.joinUrl == null
+                            ? null
+                            : () => openExternalLink(summary?.nextLiveClass?.joinUrl),
                         child: const Text('Join Live Class'),
                       ),
                     ],
