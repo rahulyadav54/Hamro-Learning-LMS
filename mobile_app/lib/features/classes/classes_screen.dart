@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/network/lms_api_service.dart';
-import '../../core/utils/link_launcher.dart';
+import '../../core/utils/meeting_launcher.dart';
 import '../../models/course_item.dart';
 import '../../widgets/section_header.dart';
 
@@ -63,7 +63,11 @@ class _ClassesScreenState extends State<ClassesScreen> {
                           if (course.joinUrl != null) ...[
                             const SizedBox(height: 12),
                             FilledButton(
-                              onPressed: () => openExternalLink(course.joinUrl),
+                              onPressed: () => openMeeting(
+                                context,
+                                course.joinUrl,
+                                course.title,
+                              ),
                               child: const Text('Join Class'),
                             ),
                           ],

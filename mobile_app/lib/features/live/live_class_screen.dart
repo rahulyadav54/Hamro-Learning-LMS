@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/network/lms_api_service.dart';
-import '../../core/utils/link_launcher.dart';
+import '../../core/utils/meeting_launcher.dart';
 import '../../models/live_class_item.dart';
 import '../../widgets/section_header.dart';
 
@@ -69,7 +69,11 @@ class _LiveClassScreenState extends State<LiveClassScreen> {
                           FilledButton(
                             onPressed: liveClass.joinUrl == null
                                 ? null
-                                : () => openExternalLink(liveClass.joinUrl),
+                                : () => openMeeting(
+                                      context,
+                                      liveClass.joinUrl,
+                                      liveClass.classTitle,
+                                    ),
                             child: const Text('Join'),
                           ),
                         ],

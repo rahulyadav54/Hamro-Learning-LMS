@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/network/lms_api_service.dart';
-import '../../core/utils/link_launcher.dart';
+import '../../core/utils/meeting_launcher.dart';
 import '../../models/course_item.dart';
 import '../../models/dashboard_summary.dart';
 import '../../widgets/section_header.dart';
@@ -137,7 +137,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       FilledButton(
                         onPressed: summary?.nextLiveClass?.joinUrl == null
                             ? null
-                            : () => openExternalLink(summary?.nextLiveClass?.joinUrl),
+                            : () => openMeeting(
+                                  context,
+                                  summary?.nextLiveClass?.joinUrl,
+                                  summary?.nextLiveClass?.classTitle ?? 'Live Class',
+                                ),
                         child: const Text('Join Live Class'),
                       ),
                     ],
